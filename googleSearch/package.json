@@ -1,0 +1,25 @@
+{
+  "name": "virtual-assistent-fakanal-ubbse2016",
+  "version": "1.0.0",
+  "description": "[![Stories in Ready](https://badge.waffle.io/BeniGal/my-university-project-ubbse2016.png?label=ready&title=Ready)](https://waffle.io/BeniGal/my-university-project-ubbse2016) # my-university-project-ubbse2016",
+  "main": "googleSearch.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BeniGal/virtual-assistent-fakanal-ubbse2016.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BeniGal/virtual-assistent-fakanal-ubbse2016/issues"
+  },
+  "homepage": "https://github.com/BeniGal/virtual-assistent-fakanal-ubbse2016#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "google-search": "0.0.4",
+    "googleapis": "^14.1.0"
+  }
+}
