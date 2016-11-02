@@ -1,0 +1,655 @@
+
+Why are the elections so problematic?
+============================
+Tokens:
+============================
+Why
+are
+the
+elections
+so
+problematic
+?
+============================
+Stop words removed:
+============================
+Why
+elections
+problematic
+?
+============================
+Stemming:
+============================
+Whi
+elect
+problemat
+?
+============================
+Part of speach tagging:
+============================
+('Why', 'WRB')
+('are', 'VBP')
+('the', 'DT')
+('elections', 'NNS')
+('so', 'RB')
+('problematic', 'JJ')
+('?', '.')
+============================
+Chunking:
+============================
+ S
+ Why <- WRB
+ are <- VBP
+ the <- DT
+	SUBJECT
+	elections <- NNS
+ so <- RB
+	SUBJECT
+	problematic <- JJ
+ ? <- .
+ S
+ Why <- WRB
+	ACTION
+	are <- VBP
+	the <- DT
+	elections <- NNS
+ so <- RB
+ problematic <- JJ
+ ? <- .
+ S
+	DETERMINATOR
+	Why <- WRB
+	are <- VBP
+ the <- DT
+ elections <- NNS
+ so <- RB
+ problematic <- JJ
+ ? <- .
+============================
+Named entity:
+============================
+ S
+ Why <- WRB
+ are <- VBP
+ the <- DT
+ elections <- NNS
+ so <- RB
+ problematic <- JJ
+ ? <- .
+============================
+Lemmatizer:
+============================
+[u'be', u'election', 'so', 'problematic']
+
+
+
+Where can i find an ATM?
+============================
+Tokens:
+============================
+Where
+can
+i
+find
+an
+ATM
+?
+============================
+Stop words removed:
+============================
+Where
+find
+ATM
+?
+============================
+Stemming:
+============================
+Where
+find
+ATM
+?
+============================
+Part of speach tagging:
+============================
+('Where', 'WRB')
+('can', 'MD')
+('i', 'VB')
+('find', 'VB')
+('an', 'DT')
+('ATM', 'NNP')
+('?', '.')
+============================
+Chunking:
+============================
+ S
+ Where <- WRB
+ can <- MD
+ i <- VB
+ find <- VB
+ an <- DT
+	SUBJECT
+	ATM <- NNP
+ ? <- .
+ S
+ Where <- WRB
+ can <- MD
+	ACTION
+	i <- VB
+	ACTION
+	find <- VB
+	an <- DT
+	ATM <- NNP
+ ? <- .
+ S
+	DETERMINATOR
+	Where <- WRB
+ can <- MD
+ i <- VB
+ find <- VB
+ an <- DT
+ ATM <- NNP
+ ? <- .
+============================
+Named entity:
+============================
+ S
+ Where <- WRB
+ can <- MD
+ i <- VB
+ find <- VB
+ an <- DT
+	ORGANIZATION
+	ATM <- NNP
+ ? <- .
+============================
+Lemmatizer:
+============================
+['i', 'find', 'ATM']
+
+
+
+What is the capital of Romania?
+============================
+Tokens:
+============================
+What
+is
+the
+capital
+of
+Romania
+?
+============================
+Stop words removed:
+============================
+What
+capital
+Romania
+?
+============================
+Stemming:
+============================
+What
+capit
+Romania
+?
+============================
+Part of speach tagging:
+============================
+('What', 'WP')
+('is', 'VBZ')
+('the', 'DT')
+('capital', 'NN')
+('of', 'IN')
+('Romania', 'NNP')
+('?', '.')
+============================
+Chunking:
+============================
+ S
+	SUBJECT
+	What <- WP
+ is <- VBZ
+ the <- DT
+	SUBJECT
+	capital <- NN
+ of <- IN
+	SUBJECT
+	Romania <- NNP
+ ? <- .
+ S
+ What <- WP
+	ACTION
+	is <- VBZ
+	the <- DT
+	capital <- NN
+ of <- IN
+ Romania <- NNP
+ ? <- .
+ S
+	DETERMINATOR
+	What <- WP
+	is <- VBZ
+ the <- DT
+ capital <- NN
+ of <- IN
+ Romania <- NNP
+ ? <- .
+============================
+Named entity:
+============================
+ S
+ What <- WP
+ is <- VBZ
+ the <- DT
+ capital <- NN
+ of <- IN
+	GPE
+	Romania <- NNP
+ ? <- .
+============================
+Lemmatizer:
+============================
+[u'be', 'capital', 'Romania']
+
+
+
+Open a cat video for me.
+============================
+Tokens:
+============================
+Open
+a
+cat
+video
+for
+me
+.
+============================
+Stop words removed:
+============================
+Open
+cat
+video
+.
+============================
+Stemming:
+============================
+Open
+cat
+video
+.
+============================
+Part of speach tagging:
+============================
+('Open', 'VB')
+('a', 'DT')
+('cat', 'NN')
+('video', 'NN')
+('for', 'IN')
+('me', 'PRP')
+('.', '.')
+============================
+Chunking:
+============================
+ S
+ Open <- VB
+ a <- DT
+	SUBJECT
+	cat <- NN
+	video <- NN
+ for <- IN
+	SUBJECT
+	me <- PRP
+ . <- .
+ S
+	ACTION
+	Open <- VB
+	a <- DT
+	cat <- NN
+ video <- NN
+ for <- IN
+ me <- PRP
+ . <- .
+ S
+ Open <- VB
+ a <- DT
+ cat <- NN
+ video <- NN
+ for <- IN
+ me <- PRP
+ . <- .
+============================
+Named entity:
+============================
+ S
+ Open <- VB
+ a <- DT
+ cat <- NN
+ video <- NN
+ for <- IN
+ me <- PRP
+ . <- .
+============================
+Lemmatizer:
+============================
+['Open', 'cat', 'video']
+
+
+
+I want to go clubbing.
+============================
+Tokens:
+============================
+I
+want
+to
+go
+clubbing
+.
+============================
+Stop words removed:
+============================
+I
+want
+go
+clubbing
+.
+============================
+Stemming:
+============================
+I
+want
+go
+club
+.
+============================
+Part of speach tagging:
+============================
+('I', 'PRP')
+('want', 'VBP')
+('to', 'TO')
+('go', 'VB')
+('clubbing', 'NN')
+('.', '.')
+============================
+Chunking:
+============================
+ S
+	SUBJECT
+	I <- PRP
+ want <- VBP
+ to <- TO
+ go <- VB
+	SUBJECT
+	clubbing <- NN
+ . <- .
+ S
+ I <- PRP
+	ACTION
+	want <- VBP
+ to <- TO
+	ACTION
+	go <- VB
+	clubbing <- NN
+ . <- .
+ S
+ I <- PRP
+ want <- VBP
+ to <- TO
+ go <- VB
+ clubbing <- NN
+ . <- .
+============================
+Named entity:
+============================
+ S
+ I <- PRP
+ want <- VBP
+ to <- TO
+ go <- VB
+ clubbing <- NN
+ . <- .
+============================
+Lemmatizer:
+============================
+['want', 'go', 'clubbing']
+
+
+
+Is it raining?
+============================
+Tokens:
+============================
+Is
+it
+raining
+?
+============================
+Stop words removed:
+============================
+Is
+raining
+?
+============================
+Stemming:
+============================
+Is
+rain
+?
+============================
+Part of speach tagging:
+============================
+('Is', 'VBZ')
+('it', 'PRP')
+('raining', 'VBG')
+('?', '.')
+============================
+Chunking:
+============================
+ S
+ Is <- VBZ
+	SUBJECT
+	it <- PRP
+ raining <- VBG
+ ? <- .
+ S
+	ACTION
+	Is <- VBZ
+ it <- PRP
+	ACTION
+	raining <- VBG
+ ? <- .
+ S
+ Is <- VBZ
+ it <- PRP
+ raining <- VBG
+ ? <- .
+============================
+Named entity:
+============================
+ S
+ Is <- VBZ
+ it <- PRP
+ raining <- VBG
+ ? <- .
+============================
+Lemmatizer:
+============================
+['Is', u'rain']
+
+
+
+What is wrong with Donald Trump?
+============================
+Tokens:
+============================
+What
+is
+wrong
+with
+Donald
+Trump
+?
+============================
+Stop words removed:
+============================
+What
+wrong
+Donald
+Trump
+?
+============================
+Stemming:
+============================
+What
+wrong
+Donald
+Trump
+?
+============================
+Part of speach tagging:
+============================
+('What', 'WP')
+('is', 'VBZ')
+('wrong', 'JJ')
+('with', 'IN')
+('Donald', 'NNP')
+('Trump', 'NNP')
+('?', '.')
+============================
+Chunking:
+============================
+ S
+	SUBJECT
+	What <- WP
+ is <- VBZ
+	SUBJECT
+	wrong <- JJ
+ with <- IN
+	SUBJECT
+	Donald <- NNP
+	Trump <- NNP
+ ? <- .
+ S
+ What <- WP
+	ACTION
+	is <- VBZ
+ wrong <- JJ
+ with <- IN
+ Donald <- NNP
+ Trump <- NNP
+ ? <- .
+ S
+	DETERMINATOR
+	What <- WP
+	is <- VBZ
+ wrong <- JJ
+ with <- IN
+ Donald <- NNP
+ Trump <- NNP
+ ? <- .
+============================
+Named entity:
+============================
+ S
+ What <- WP
+ is <- VBZ
+ wrong <- JJ
+ with <- IN
+	PERSON
+	Donald <- NNP
+	Trump <- NNP
+ ? <- .
+============================
+Lemmatizer:
+============================
+[u'be', 'wrong', 'Donald', 'Trump']
+
+
+
+Open John Oliver's latest video.
+============================
+Tokens:
+============================
+Open
+John
+Oliver
+'s
+latest
+video
+.
+============================
+Stop words removed:
+============================
+Open
+John
+Oliver
+'s
+latest
+video
+.
+============================
+Stemming:
+============================
+Open
+John
+Oliv
+'s
+latest
+video
+.
+============================
+Part of speach tagging:
+============================
+('Open', 'NNP')
+('John', 'NNP')
+('Oliver', 'NNP')
+("'s", 'POS')
+('latest', 'JJS')
+('video', 'NN')
+('.', '.')
+============================
+Chunking:
+============================
+ S
+	SUBJECT
+	Open <- NNP
+	John <- NNP
+	Oliver <- NNP
+	's <- POS
+	latest <- JJS
+	video <- NN
+ . <- .
+ S
+ Open <- NNP
+ John <- NNP
+ Oliver <- NNP
+ 's <- POS
+ latest <- JJS
+ video <- NN
+ . <- .
+ S
+ Open <- NNP
+ John <- NNP
+ Oliver <- NNP
+ 's <- POS
+ latest <- JJS
+ video <- NN
+ . <- .
+============================
+Named entity:
+============================
+ S
+ Open <- NNP
+	PERSON
+	John <- NNP
+	Oliver <- NNP
+ 's <- POS
+ latest <- JJS
+ video <- NN
+ . <- .
+============================
+Lemmatizer:
+============================
+['Open', 'John', 'Oliver', u'late', 'video']
