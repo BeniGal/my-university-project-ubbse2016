@@ -5,6 +5,25 @@ from nltk.stem import PorterStemmer
 from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.corpus import wordnet
 
+from nltk.corpus import conll2000
+
+NPChunker = None
+
+class ChunkParser(nltk.ChunkParserI):
+    def __init__(self, train_sents):
+        train_data = [[(t,c) for w,t,c in nltk.chunk.tree2conlltags(sent)]
+            for sent in train_sents]
+        self.tagger = nltk.TrigramTagger(train_data)
+
+    def parse(self, sentence):
+        pos_tags = [pos for (word,pos) in sentence]
+        tagged_pos_tags = self.tagger.tag(pos_tags)
+        chunktags = [chunktag for (pos, chunktag) in tagged_pos_tags]
+        conlltags = [(word, pos, chunktag) for ((word,pos),chunktag)
+            in zip(sentence, chunktags)]
+
+        return nltk.chunk.conlltags2tree(conlltags)
+
 def printTree (tree, tabs = 0):
     print '\t'*tabs,
     print tree.label()
@@ -113,8 +132,23 @@ def demo(sentence):
 
     print lemmas
 
+    print "============================"
+    print "NP Chunker: "
+    print "============================"
+
+    npChunk = NPChunker.parse(tagged)
+    printTree(npChunk)
 
 if __name__ == "__main__":
+
+    test_sents = conll2000.chunked_sents('test.txt', chunk_types=['NP'])
+    train_sents = conll2000.chunked_sents('train.txt', chunk_types=['NP'])
+    NPChunker = ChunkParser(train_sents)
+
+    examples2 = ["What is the capital of the United States?",
+        "Were did James Cook die?",
+        "What is the weather in central Europe?"]
+
     examples = ["Why are the elections so problematic?",
         "Where can i find an ATM?",
         "What is the capital of Romania?",
@@ -124,7 +158,7 @@ if __name__ == "__main__":
         "What is wrong with Donald Trump?",
         "Open John Oliver's latest video."]
 
-    for example in examples:
+    for example in examples2:
         print
         print example
         demo(example)
