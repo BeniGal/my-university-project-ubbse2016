@@ -18,9 +18,9 @@ public class MainActivity extends AppCompatActivity implements Callback<Void> {
     private static final String TAG = MainActivity.class.getName();
     public static ServerAPI API;
 
-    private final Button sendButton = (Button) findViewById(R.id.button);
-    private final EditText editText = (EditText) findViewById(R.id.editText);
-    private final TextView textView = (TextView) findViewById(R.id.textView);
+    private Button sendButton;
+    private EditText editText;
+    private TextView textView;
 
     // Address is hardcoded for now, later may be injected.
     private String serverAddress = "35.156.26.234";
@@ -30,6 +30,12 @@ public class MainActivity extends AppCompatActivity implements Callback<Void> {
         super.onCreate(savedInstanceState);
 
         final Callback<Void> thiz = this;
+
+        setContentView(R.layout.activity_main);
+
+        sendButton = (Button) findViewById(R.id.button);
+        editText = (EditText) findViewById(R.id.editText);
+        textView = (TextView) findViewById(R.id.textView);
 
         // Simple click listener
         sendButton.setOnClickListener(new View.OnClickListener() {
@@ -42,8 +48,6 @@ public class MainActivity extends AppCompatActivity implements Callback<Void> {
                 helloWorldApiCall.enqueue(thiz);
             }
         });
-
-        setContentView(R.layout.activity_main);
     }
 
     @Override
