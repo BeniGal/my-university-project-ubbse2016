@@ -30,7 +30,7 @@ public class ServerAPIBuilder {
 
         this.protocol = "http://";
         this.serverUrl = serverAddress;
-        this.port = "8080";
+        this.port = "80";
     }
 
     public ServerAPI build() {
