@@ -1,5 +1,6 @@
 package fakanal.android.network;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -9,5 +10,5 @@ public interface ServerAPI {
 
     @FormUrlEncoded
     @POST("/hello/world/endpoint")
-    Call<Void> helloWorldCall(@Field("user") String message);
+    Call<ResponseBody> helloWorldCall(@Field("message") String message);
 }

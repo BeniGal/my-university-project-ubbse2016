@@ -8,13 +8,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.IOException;
+
 import fakanal.android.network.ServerAPI;
 import fakanal.android.network.ServerAPIBuilder;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements Callback<Void> {
+public class MainActivity extends AppCompatActivity implements Callback<ResponseBody> {
     private static final String TAG = MainActivity.class.getName();
     public static ServerAPI API;
 
@@ -29,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements Callback<Void> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final Callback<Void> thiz = this;
+        final Callback<ResponseBody> thiz = this;
 
         setContentView(R.layout.activity_main);
 
@@ -44,17 +47,21 @@ public class MainActivity extends AppCompatActivity implements Callback<Void> {
                 Log.i(TAG, "Sending request to server with message: " + message);
 
                 API = new ServerAPIBuilder(serverAddress).build();
-                Call<Void> helloWorldApiCall = API.helloWorldCall(message);
+                Call<ResponseBody> helloWorldApiCall = API.helloWorldCall(message);
                 helloWorldApiCall.enqueue(thiz);
             }
         });
     }
 
     @Override
-    public void onResponse(Call<Void> helloWorldApiCall, Response<Void> response) {
+    public void onResponse(Call<ResponseBody> helloWorldApiCall, Response<ResponseBody> response) {
         if (response.isSuccessful()) {
             Log.i(TAG, "Successfully got answer from the server, response: " + response);
-            textView.setText(response.message());
+            try {
+                textView.setText(response.body().string());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
             Log.e(TAG, "Failed to get a success answer from the server, response: " + response.code());
             textView.setText(":(");
@@ -62,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements Callback<Void> {
     }
 
     @Override
-    public void onFailure(Call<Void> helloWorldApiCall, Throwable t) {
+    public void onFailure(Call<ResponseBody> helloWorldApiCall, Throwable t) {
         Log.e(TAG, "Failed to get answer from the server", t);
         textView.setText(":((");
     }
