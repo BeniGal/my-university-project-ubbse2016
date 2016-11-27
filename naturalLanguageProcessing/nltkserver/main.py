@@ -1,4 +1,4 @@
-from flask import Flask, request, Response
+from flask import Flask, request, Response, jsonify
 from languageAnalisys import QuestionParser
 import os
 
@@ -27,6 +27,12 @@ def command():
             return Response(parser.parseQuestion(), mimetype="application/json")
     else:
         return jsonify({"message":"Content type unset or not supported!", "code":400 }), 400
+
+@app.errorhandler(500)
+@app.errorhandler(404)
+@app.errorhandler(401)
+def http_error_handler(error):
+    return jsonify({"code":error.code, "message":str(error)}), error.code
 
 if __name__ == "__main__":
     app.run(debug=debug,

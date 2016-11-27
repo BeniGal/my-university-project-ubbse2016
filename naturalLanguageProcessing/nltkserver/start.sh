@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python /opt/fakanal/main.py
+python3.5 /opt/fakanal/main.py
