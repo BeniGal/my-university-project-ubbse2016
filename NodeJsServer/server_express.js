@@ -54,9 +54,24 @@ app.post('/nltk', function(req, res) {
     }
     console.log('Request was succesful!');
     console.log(body);
+
     res.send(body);
   });
 })
+
+
+function searchByUUID(data, uuid) {
+
+  var dataInJson = JSON.parse(data);
+  var arrayToSearch = dataInJson.components;
+  var arrayLength = arrayToSearch.length;
+  for (var i = 0; i < arrayLength; i++) {
+    if (arrayToSearch[i].uuid === uuid) {
+      var response = arrayToSearch[i];
+    }
+  }
+  return response;
+}
 
 var server = http.createServer(app);
 server.listen(9191);
