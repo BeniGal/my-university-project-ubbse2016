@@ -4,6 +4,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var http = require('http');
 var google = require('googleapis');
+var request = require('request');
 var customSearch = google.customsearch('v1');
 var apiKey = 'apiKey';
 var apiCx = 'apiCx';
@@ -11,9 +12,7 @@ var apiCx = 'apiCx';
 var app = express();
 
 // to support URL-encoded bodies
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(bodyParser.json());
 
 app.post('/hello/world/endpoint', function(request, response) {
 
@@ -36,7 +35,28 @@ app.post('/googleSearch', function(req, res) {
   })
 });
 
-// TODO: implement connection to nltk module
+app.post('/nltk', function(req, res) {
+
+  var question = req.body.question;
+  var dataJson = '{"question" : "' + question + '"}';
+  console.log('[Sending data to nltk module: ' + dataJson + ']');
+  request({
+    url: 'http://localhost:8080/nltk/rest/command',
+    method: 'POST',
+    headers: {
+      'Content-Type' : 'application/json'
+    },
+    body: dataJson
+  }, function(error, response, body) {
+    if (error) {
+      console.log('Error:', error);
+      return;
+    }
+    console.log('Request was succesful!');
+    console.log(body);
+    res.send(body);
+  });
+})
 
 var server = http.createServer(app);
-server.listen(80);
+server.listen(9191);

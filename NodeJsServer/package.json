@@ -9,8 +9,9 @@
   "author": "Béni Gál",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.13.4",
     "body-parser": "*",
-    "http": "*"
+    "express": "^4.13.4",
+    "http": "*",
+    "request": "^2.79.0"
   }
 }
