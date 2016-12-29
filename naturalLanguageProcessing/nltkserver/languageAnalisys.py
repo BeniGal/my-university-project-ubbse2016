@@ -1,4 +1,5 @@
 from nltk.tokenize import word_tokenize, sent_tokenize
+from nltk.corpus import stopwords
 import nltk
 import json
 import uuid
@@ -62,26 +63,35 @@ class LanguageAnalisys(object):
 
     generalRegexp = r"""
         QTP: {<WP|WRB>}
-        STRCN: {<DT>? <JJ>* <NN>*}
-        STRCN: {<NNP.?>+}
-        STRCV: {<VB.*>+}
-        STRCA: {<STRCV> <STRCN>}
+        STRCN: {<DT>? <JJ.*>* <FW|NN|NNS|VBG>+}
+        STRCN: {<DT>? <JJ.*>* <FW|NN|NNS|VBG>* <NNP.?>+}
+        STRAD: {<RB.*> <JJ.*>*}
+        STRCV: {<VB.*>+ <JJ.*>*}
         STRIN: {<IN>}
-        STRREL: {<STRC.?> <STRIN> <STRC.?>}
+        STRCC: {<CC>}
+        STRCA: {<STRCV> <STRC.+>}
+        STRCMN: {<STRCN> <STRCC> <STRCN>}
+    """
+
+    advancedRegexp = r"""
+        STRREF: {<STRCA> <STRIN> <STRC.+>}
     """
 
     def __init__(self):
         self.chunkGeneralParser = nltk.RegexpParser(self.generalRegexp)
+        self.chunkAdvancedParser = nltk.RegexpParser(self.advancedRegexp)
 
     def tag(self, sentence):
         return nltk.pos_tag(word_tokenize(sentence))
 
     def chunkGeneral(self, tags):
         chunked = self.chunkGeneralParser.parse(tags)
-        return NltkTreeUtil.listTree(chunked)
+        final = self.chunkAdvancedParser.parse(chunked)
+        return NltkTreeUtil.listTree(final)
 
     def printGeneral(self, tags):
         chunked = self.chunkGeneralParser.parse(tags)
+        final = self.chunkAdvancedParser.parse(chunked)
         return NltkTreeUtil.printTree(chunked)
 
 languageAnalisys = LanguageAnalisys()
@@ -95,17 +105,23 @@ class QuestionParser(object):
     def typeClarify(self, structure):
         for struct in structure:
             if struct['type'] == 'QTP':
-                struct['type'] = 'Question Type'
+                struct['type'] = ['Question', 'Type']
             elif struct['type'] == 'STRCN':
-                struct['type'] = 'Structure Core Noun'
+                struct['type'] = ['Structure','Core','Noun']
             elif struct['type'] == 'STRCV':
-                struct['type'] = 'Structure Core Verb'
+                struct['type'] = ['Structure','Core','Verb']
             elif struct['type'] == 'STRCA':
-                struct['type'] = 'Structure Core Action'
+                struct['type'] = ['Structure','Core','Action']
             elif struct['type'] == 'STRIN':
-                struct['type'] = 'Structure Link'
-            elif struct['type'] == 'STRREL':
-                struct['type'] = 'Structure Relation'
+                struct['type'] = ['Structure','Conjunction']
+            elif struct['type'] == 'STRCC':
+                struct['type'] = ['Structure','Link']
+            elif struct['type'] == 'STRCMN':
+                struct['type'] = ['Structure','Core','Multiple','Noun']
+            elif struct['type'] == 'STRREF':
+                struct['type'] = ['Structure','Reference']
+            elif struct['type'] == 'STRAD':
+                struct['type'] = ['Structure','Additional']
             elif struct['type'] == 'S':
                 struct['type'] = 'Root'
 
@@ -115,6 +131,8 @@ class QuestionParser(object):
 
         # keyword
         tags = languageAnalisys.tag(self.question)
+        for tag in tags:
+            print(tag)
         self.parsed['question'] = self.question
 
         components, something = languageAnalisys.chunkGeneral(tags)
@@ -131,9 +149,14 @@ class QuestionParser(object):
 
         return json.dumps(self.parsed)
 
+
+
 if __name__ == "__main__":
     with open("tests/sample1.questions") as f:
         content = f.readlines()
     for line in content:
-        tag = languageAnalisys.tag(line)
-        languageAnalisys.printGeneral(tag)
+        print("===alahuakbar===")
+        print(line)
+        questionParser = QuestionParser(line)
+        print(questionParser.parseQuestion())
+        print("===alahuakbar===")
