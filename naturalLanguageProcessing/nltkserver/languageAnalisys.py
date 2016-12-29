@@ -63,10 +63,10 @@ class LanguageAnalisys(object):
 
     generalRegexp = r"""
         QTP: {<WP|WRB>}
-        STRCN: {<DT>? <JJ.*>* <FW|NN|NNS|VBG>+}
         STRCN: {<DT>? <JJ.*>* <FW|NN|NNS|VBG>* <NNP.?>+}
-        STRAD: {<RB.*> <JJ.*>*}
+        STRCN: {<DT>? <JJ.*>* <FW|NN|NNS|VBG>+}
         STRCV: {<VB.*>+ <JJ.*>*}
+        STRAD: {<RB.*> <JJ.*>*}
         STRIN: {<IN>}
         STRCC: {<CC>}
         STRCA: {<STRCV> <STRC.+>}
