@@ -6,8 +6,8 @@ var http = require('http');
 var google = require('googleapis');
 var request = require('request');
 var customSearch = google.customsearch('v1');
-var apiKey = 'apiKey';
-var apiCx = 'apiCx';
+var apiKey = 'AIzaSyD6DEq0jhmNqT55KcuWsAG673kIVerJAi8';
+var apiCx = '017188541386240305514:wqzgsxq14ui';
 
 var app = express();
 
@@ -52,10 +52,20 @@ app.post('/nltk', function(req, res) {
       console.log('Error:', error);
       return;
     }
-    console.log('Request was succesful!');
-    console.log(body);
+    console.log('[Request was succesful]');
+    var responseJson = JSON.parse(body);
 
-    res.send(body);
+    var filteredByType = filterByType(body, 'Structure Core Noun');
+    var toSearch = filteredByType[0].content;
+    console.log('[Searching on goolge for', toSearch, ']');
+
+    var responseFromGoogle = searchOnGoogle(toSearch, function(err, result) {
+      if (error) {
+        console.log('Error');
+        return error;
+      }
+      res.send(result);
+    });
   });
 })
 
@@ -73,5 +83,34 @@ function searchByUUID(data, uuid) {
   return response;
 }
 
+function filterByType(data, type) {
+
+  var dataInJson = JSON.parse(data);
+  var arrayToSearch = dataInJson.components;
+  var arrayLength = arrayToSearch.length;
+  var responseArray = [];
+  var item = 0;
+  for (var i = 0; i < arrayLength; i++) {
+    if (arrayToSearch[i].type === type) {
+      responseArray[item] = arrayToSearch[i];
+      item++;
+    }
+  }
+  return responseArray;
+}
+
+function searchOnGoogle(toSearch, callback) {
+
+  console.log('[Searching for',toSearch,']');
+  customSearch.cse.list({cx: apiCx, q: toSearch, auth:apiKey}, function(error, result) {
+    if (error) {
+      console.log('Error');
+      callback(error);
+    }
+    console.log('Google:', result);
+    callback(null, result);
+  })
+}
+
 var server = http.createServer(app);
-server.listen(9191);
+server.listen(80);
