@@ -1,0 +1,14 @@
+sudo: required
+
+language: python
+
+services:
+  - docker
+  
+install:
+  - docker pull python:3.5
+
+script:
+  - docker build fakanal/nltk:0.2 /naturalLanguageProcessing/Dockerfile
+  - docker login -u fakanal -p fakanal
+  - docker push fakanal/nltk:0.2
