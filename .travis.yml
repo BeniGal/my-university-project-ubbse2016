@@ -9,6 +9,6 @@ install:
   - docker pull python:3.5
 
 script:
-  - docker build --tag fakanal/nltk:0.2 ./naturalLanguageProcessing
+  - travis_wait 45 docker build --tag fakanal/nltk:0.2 ./naturalLanguageProcessing
   - docker login -u fakanal -p fakanal
   - docker push fakanal/nltk:0.2
