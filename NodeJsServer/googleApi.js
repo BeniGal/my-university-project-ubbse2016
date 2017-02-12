@@ -8,17 +8,15 @@ var winston = require('winston');
 function searchOnGoogle(searchTerms, callback) {
     winston.info("Searching on google with terms: ");
     winston.debug(searchTerms);
-  // customSearch.cse.list({cx: apiCx, q: searchTerms.query, auth:apiKey}, function(error, result) {
-  //   if (error) {
-  //     winston.error(error);
-  //     callback(error);
-  //   }
-  //   winston.info(result);
-  //   callback(null, result);
-  // })
+    customSearch.cse.list({cx: apiCx, q: searchTerms.query, auth:apiKey}, function(error, result) {
+        if (error) {
+            winston.error(error);
+            callback(error);
+        }
 
-    searchResult = {"result":"result"};
-    callback(null, searchResult);
+        winston.info(result);
+        callback(null, result);
+    });
 }
 
 function filterResponse(response, callback) {
