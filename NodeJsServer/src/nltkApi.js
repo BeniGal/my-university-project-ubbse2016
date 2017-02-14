@@ -1,25 +1,39 @@
 var winston = require('winston');
 var request = require('request');
 
-function filterByType(data, type) {
-
-  var dataInJson = JSON.parse(data);
-  var arrayToSearch = dataInJson.components;
-  var arrayLength = arrayToSearch.length;
-  var responseArray = [];
-  var item = 0;
-  for (var i = 0; i < arrayLength; i++) {
-    if (arrayToSearch[i].type === type) {
-        responseArray[item] = arrayToSearch[i];
-        item++;
+function contains(entry, type) {
+    for (i in entry) {
+        if (entry[i] === type) {
+            return true;
+        }
     }
-  }
-  return responseArray;
+
+    return false;
 }
 
-function searchByUUID(data, uuid) {
+function matchesTypes(entry, type) {
+    for (var i = 0; i != type.length; i++) {
+        if (contains(entry["type"], type[i]) == false) {
+            return false;
+        }
+    }
 
-  var dataInJson = JSON.parse(data);
+    return true;
+}
+
+function filterByType(data, type) {
+
+    var result = [];
+    for (var i = 0; i != data.length; i++) {
+        if (matchesTypes(data[i], type) == true)
+            result.push(data[i]);
+    }
+
+    return result;
+}
+
+function searchByUUID(dataInJson, uuid) {
+
   var arrayToSearch = dataInJson.components;
   var arrayLength = arrayToSearch.length;
   for (var i = 0; i < arrayLength; i++) {
@@ -44,6 +58,7 @@ function questionTypeFilter(questionType) {
     } else if (questionType.toLowerCase() == "why") {
         res = "reason";
     }
+    else res = undefined;
 
     return res;
 }
@@ -53,6 +68,7 @@ function parseQuestion(question, callback) {
     winston.debug(question);
     var dataJson = '{"question" : "' + question + '"}';
     winston.debug(dataJson);
+
     request({
         url: 'http://localhost:8081/nltk/rest/command',
         method: 'POST',
@@ -62,9 +78,11 @@ function parseQuestion(question, callback) {
         body: dataJson
       }, function(error, response, body) {
             if (error) {
-                callback(err);
+                winston.error(error);
+                callback(error);
             }
             winston.info("Request was successfull!");
+            winston.debug(body);
             var responseJson = JSON.parse(body);
             callback(null, responseJson);
         });
@@ -73,12 +91,27 @@ function parseQuestion(question, callback) {
 function filterResponse(responseJson, callback) {
     winston.info("Filtering response from nltk...");
 
+    comps = responseJson.components;
+    for (var i = 0; i != comps.length; i++) {
+        winston.debug(comps[i]);
+    }
+
     // Todo:
     //  Implement filtering here
-    var searchTerms = {};
+    var searchTerms = {}
 
-    searchTerms['query'] = responseJson['question'];
-
+    var elements = filterByType(responseJson.components, "Root")[0]["elements"];
+    var resp = "";
+    for (i = 0; i != elements.length; ++i) {
+        var elem = searchByUUID(responseJson, elements[i]);
+        if (matchesTypes(elem, ["Structure", "Core"]) == true) {
+            resp = resp + elem.content + ",";
+        }
+    }
+    winston.debug("resp is: " + resp);
+    searchTerms['query'] = resp;
+    var questionType = filterByType(responseJson.components, ["Question", "Type"]);
+    searchTerms['extra'] = questionTypeFilter(questionType[0].content);
     callback(null, searchTerms);
 }
 

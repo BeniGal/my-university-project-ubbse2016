@@ -8,24 +8,27 @@ var winston = require('winston');
 function searchOnGoogle(searchTerms, callback) {
     winston.info("Searching on google with terms: ");
     winston.debug(searchTerms);
-    customSearch.cse.list({cx: apiCx, q: searchTerms.query, auth:apiKey}, function(error, result) {
+    customSearch.cse.list({cx: apiCx, q: searchTerms.query, auth:apiKey, extraTerms: searchTerms.extra, num:1}, function(error, result) {
         if (error) {
             winston.error(error);
             callback(error);
         }
 
-        winston.info(result);
+        winston.info("Recieved response!");
         callback(null, result);
     });
 }
 
 function filterResponse(response, callback) {
     winston.info("Filtering response:");
-    winston.debug(response);
 
-    filtered = {"filtered":"filtered"};
-    winston.info(filtered);
-    callback(null, filtered);
+    filtered = response.items[0].snippet;
+    split = filtered.split(".");
+    for (i in split) {
+        winston.info("\"" + split[i] + "\"");
+    }
+
+    callback(null, split[0]);
 }
 
 module.exports = {

@@ -12,6 +12,7 @@ require('./log')();
 var nltkApi = require('./nltkApi');
 var googleApi = require('./googleApi');
 
+var port = process.env.NODE_PORT || 8080;
 var app = express();
 app.use(bodyParser.json());
 
@@ -37,7 +38,7 @@ app.post('/googleSearch', function(req, res) {
           winston.info("Turning filtered response into answer...");
           winston.debug(filtered);
 
-          var answer = {"response":"Whatever"};
+          var answer = {"response":filtered};
           callback(null, answer);
       }
   ],function (err, response) {
@@ -52,4 +53,5 @@ app.post('/googleSearch', function(req, res) {
 });
 
 var server = http.createServer(app);
-server.listen(8080);
+server.listen(port);
+winston.info("Server started on port " + port);
