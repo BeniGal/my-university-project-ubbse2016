@@ -1,6 +1,8 @@
 var winston = require('winston');
 var request = require('request');
 
+var nltkServer = process.env.NLTK_SERVER || "http://localhost:8080"
+
 function contains(entry, type) {
     for (i in entry) {
         if (entry[i] === type) {
@@ -70,7 +72,7 @@ function parseQuestion(question, callback) {
     winston.debug(dataJson);
 
     request({
-        url: 'http://localhost:8081/nltk/rest/command',
+        url: nltkServer + '/nltk/rest/command',
         method: 'POST',
         headers: {
             'Content-Type' : 'application/json'
