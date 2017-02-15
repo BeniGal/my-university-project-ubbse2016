@@ -22,13 +22,21 @@ function searchOnGoogle(searchTerms, callback) {
 function filterResponse(response, callback) {
     winston.info("Filtering response:");
 
+    regexp = /([...])|([\\]n)/
     filtered = response.items[0].snippet;
-    split = filtered.split(".");
+    resp = "";
+    split = filtered.split("...");
     for (i in split) {
+        resp = resp + split[i];
         winston.info("\"" + split[i] + "\"");
     }
+    split = resp.split("\n");
+    resp = "";
+    for (i in split) {
+        resp = resp + split[i];
+    }
 
-    callback(null, split[0]);
+    callback(null, resp);
 }
 
 module.exports = {

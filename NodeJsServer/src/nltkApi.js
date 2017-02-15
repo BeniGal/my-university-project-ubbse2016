@@ -111,7 +111,11 @@ function filterResponse(responseJson, callback) {
     winston.debug("resp is: " + resp);
     searchTerms['query'] = resp;
     var questionType = filterByType(responseJson.components, ["Question", "Type"]);
-    searchTerms['extra'] = questionTypeFilter(questionType[0].content);
+    if (questionType.length == 0) {
+        searchTerms['extra'] = undefined;
+    } else {
+        searchTerms['extra'] = questionTypeFilter(questionType[0].content);
+    }
     callback(null, searchTerms);
 }
 
