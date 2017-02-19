@@ -66,6 +66,10 @@ function questionTypeFilter(questionType) {
 }
 
 function parseQuestion(question, callback) {
+    if (question == "Who are you?") {
+        callback('found', 'I am a virtual assistent developed by a brilliant team');
+        return;
+    }
     winston.info("Sending request to nltk-server...");
     winston.debug(question);
     var dataJson = '{"question" : "' + question + '"}';

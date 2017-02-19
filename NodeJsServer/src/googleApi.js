@@ -8,35 +8,58 @@ var winston = require('winston');
 function searchOnGoogle(searchTerms, callback) {
     winston.info("Searching on google with terms: ");
     winston.debug(searchTerms);
-    customSearch.cse.list({cx: apiCx, q: searchTerms.query, auth:apiKey, extraTerms: searchTerms.extra, num:1}, function(error, result) {
+    if (!searchTerms.query) {
+        callback('error', "Sorry I didn't understand that");
+        return;
+    }
+    customSearch.cse.list({ cx: apiCx, q: searchTerms.query, auth: apiKey, extraTerms: searchTerms.extra, num: 3 }, function (error, result) {
         if (error) {
             winston.error(error);
             callback(error);
         }
 
         winston.info("Recieved response!");
+        result['extra'] = searchTerms.extra;
         callback(null, result);
     });
 }
 
 function filterResponse(response, callback) {
     winston.info("Filtering response:");
+    winston.debug(response.items[0].snippet);
 
-    regexp = /([...])|([\\]n)/
+    regexp = /[,]/
     filtered = response.items[0].snippet;
-    resp = "";
-    split = filtered.split("...");
+    splitted = "";
+    split = filtered.split(regexp);
     for (i in split) {
-        resp = resp + split[i];
-        winston.info("\"" + split[i] + "\"");
+        if (split[i]) {
+            if (!split[i].includes("...")) {
+                if (i != 0) {
+                    split[i] = firstToLowerCase(split[i]);
+                }
+                split[i] += ",";
+                split[i] = split[i].replace(/\n/g, "");
+                splitted = splitted + split[i];
+            }
+        }
     }
-    split = resp.split("\n");
-    resp = "";
-    for (i in split) {
-        resp = resp + split[i];
+    splitted = splitted.split(/[.]/);
+    if (splitted[0].substr(splitted[0].length - 1) == ',') {
+        resp = splitted[0].slice(0, -1);
+    } else {
+        resp = splitted[0];
+    }
+
+    if (resp == "") {
+        resp = "I don't know";
     }
 
     callback(null, resp);
+}
+
+function firstToLowerCase(str) {
+    return str.substr(0, 1).toLowerCase() + str.substr(1);
 }
 
 module.exports = {
