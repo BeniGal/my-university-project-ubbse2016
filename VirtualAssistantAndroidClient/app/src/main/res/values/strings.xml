@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Fakanál Virtual Assistant</string>
+    <string name="text_edit">Enter your question or command</string>
+    <string name="send_button_text">Send</string>
+</resources>
