@@ -24,11 +24,12 @@
             android:orientation="vertical"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:paddingTop="8dp">
+            android:paddingTop="5dp"
+            android:paddingBottom="8dp">
 
             <TextView
                 android:id="@+id/text_view_message"
-                android:textSize="18dp"
+                android:textSize="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
