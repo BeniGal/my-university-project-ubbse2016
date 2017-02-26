@@ -34,7 +34,9 @@ public class MessageProcessor {
     private final ServerAPI API;
 
     private final String WELCOME_MESSAGE =
-            "Hello! My name is Fakanal Virtual Assistant. How can I help you?";
+            "Hello! My name is Sis. How can I help you?";
+    private final String INTRODUCING_MYSELF =
+            "I am the Virtual Assistant of the Fakanál Team. But you can call me Sis.";
     private final TextToSpeech textToSpeech;
     private final RecyclerView recyclerView;
     private final ChatMessageAdapter adapter;
@@ -70,7 +72,7 @@ public class MessageProcessor {
             sendMessage(message);
 
             if (message.toLowerCase().startsWith("who are you")) {
-                mimicOtherMessage("I am the Virtual Assistant of the Fakanál Team. But you can call me Sis.");
+                mimicOtherMessage(INTRODUCING_MYSELF);
             }
             else if (message.toLowerCase().startsWith("who is florin iordache")) {
                 mimicDragneaMessage();
