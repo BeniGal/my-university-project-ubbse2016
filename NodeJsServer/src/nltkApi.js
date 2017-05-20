@@ -4,6 +4,7 @@ var request = require('request');
 var nltkServer = process.env.NLTK_SERVER || "http://localhost:8080"
 
 function contains(entry, type) {
+
     for (i in entry) {
         if (entry[i] === type) {
             return true;
@@ -142,5 +143,8 @@ function filterResponse(responseJson, callback) {
 
 module.exports = {
     parseQuestion: parseQuestion,
-    filterResponse: filterResponse
+    filterResponse: filterResponse,
+    questionTypeFilter: questionTypeFilter,
+    searchByUUID: searchByUUID,
+    contains: contains
 }

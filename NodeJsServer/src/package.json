@@ -11,9 +11,11 @@
   "dependencies": {
     "async": "^2.1.4",
     "body-parser": "*",
+    "chai": "^3.5.0",
     "express": "^4.13.4",
     "googleapis": "^16.1.0",
     "http": "*",
+    "mocha": "^3.4.1",
     "request": "^2.79.0",
     "winston": "^2.3.1"
   }

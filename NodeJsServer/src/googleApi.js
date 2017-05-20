@@ -28,8 +28,20 @@ function filterResponse(response, callback) {
     winston.info("Filtering response:");
     winston.debug(response.items[0].snippet);
 
-    regexp = /[,]/
     filtered = response.items[0].snippet;
+    winston.info('Snippet:', filtered);
+    resp = filter(filtered);
+
+    callback(null, resp);
+}
+
+function firstToLowerCase(str) {
+    return str.substr(0, 1).toLowerCase() + str.substr(1);
+}
+
+function filter(filtered) {
+
+    regexp = /[,]/
     splitted = "";
     split = filtered.split(regexp);
     for (i in split) {
@@ -55,14 +67,12 @@ function filterResponse(response, callback) {
         resp = "I don't know";
     }
 
-    callback(null, resp);
-}
-
-function firstToLowerCase(str) {
-    return str.substr(0, 1).toLowerCase() + str.substr(1);
+    return resp;
 }
 
 module.exports = {
     searchOnGoogle: searchOnGoogle,
-    filterResponse: filterResponse
+    filterResponse: filterResponse,
+    firstToLowerCase: firstToLowerCase,
+    filter: filter
 }
