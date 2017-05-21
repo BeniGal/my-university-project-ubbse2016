@@ -79,6 +79,3 @@ class EnglishLanguageAnalisys(AbstractLanguageAnalysis):
         chunked = self.chunkGeneralParser.parse(tags)
         final = self.chunkAdvancedParser.parse(chunked)
         return self.__list_tree(final)
-
-
-
